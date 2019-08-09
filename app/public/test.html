@@ -75,7 +75,7 @@
   /*登录*/
   function loginPost() {
 
-    axios.post('/login', { userName: '111111', password: '111111' })
+    axios.post('/login', { userName: 'aaa', password: '123' })
       .then((res) => {
         if (res.data.token) {
           window.localStorage.setItem('token', res.data.token);

@@ -66,7 +66,7 @@ class UserService extends Service {
   async search(oInput) {
     const SQL_QUERY = `
       select * from user 
-      where userName = ${oInput} or realName like "%${oInput}%""
+      where userName = ${oInput} or realName like "%${oInput}%"
     `;
 
     let result = await this.app.mysql.query(SQL_QUERY);
