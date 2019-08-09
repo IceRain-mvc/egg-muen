@@ -16,6 +16,24 @@ $ npm run dev
 $ open http://localhost:7001/
 ```
 
+### sql
+
+```bash
+修改文件 config/config.default.js
+ mysql: {
+      client: {
+        host: '127.0.0.1',
+        port: '3306',
+        user: 'root',
+        password: 'root',
+        database: 'muen'
+      }
+    }
+    修改成自己的
+
+```
+
+
 ### Deploy
 
 ```bash
