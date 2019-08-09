@@ -1,0 +1,13 @@
+{
+  "message": "success",
+  "userName": "111111",
+  "realName": "沐沐恩",
+  "createTime": "2019-08-08T08:04:34.000Z",
+  "groupId": -1,
+  "userType": 1,
+  "phoneNum": "",
+  "address": "",
+  "userIcon": "http://img.sj33.cn/uploads/allimg/201611/7-1611010T648.jpg",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IjExMTExMSIsInBhc3N3b3JkIjoiMTExMTExIiwiaWF0IjoxNTY1MzA1NzgxLCJleHAiOjE1OTY4NDE3ODF9.5FIWE5O46e2kbURFlPg6eyBQVTrJAVWgqMx77GGd908",
+  "code": 1
+}

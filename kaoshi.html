@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+  var x = prompt('请输入1-5的数字', '');
+  switch (x) {
+    case '1':
+      let y = prompt('你喜欢那种颜色 : A、红色   B、绿色     C、黑色    D、粉色');
+      switch (y) {
+        case 'A':
+          alert('红色');
+          break;
+        case 'B':
+          alert('绿色');
+          break;
+        case 'C':
+          alert('黑色');
+          break;
+        case 'D':
+          alert('粉色');
+          break;
+        default:
+          alert('未知');
+      }
+      break;
+    case '2':
+      let z1 = prompt('请实现2个数做差 第一个数');
+      let z2 = prompt('请实现2个数做差 第二个数');
+      alert(`结果为:${z1 - z2}`);
+      break;
+    case '3':
+      let o1 = prompt('请输入3个汉字 第一个汉字');
+      let o2 = prompt('请输入3个汉字 第二个汉字');
+      let o3 = prompt('请输入3个汉字 第三个汉字');
+
+      let arr = [];
+      arr.push(o1);
+      arr.push(o2);
+      arr.push(o3);
+
+      alert(`打乱顺序的结果为:${arr.sort(() => Math.random() * 100 - 50)}`);
+
+      break;
+    case '4':
+      alert('four');
+      break;
+    case '5':
+      alert('five');
+      break;
+    default:
+      alert('你啥都没选择');
+  }
+
+
+</script>
+
+</body>
+</html>

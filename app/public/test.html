@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+</head>
+<body>
+<input type="text" id="inputUserName" placeholder="用户名">
+<input type="text" id="inputPassword" placeholder="密码">
+<br>
+<button id="register">注册测试</button>
+<br>
+<button onclick="loginPost()">登录测试</button>
+<br>
+<button id="postvote">发起投票</button>
+<br>
+<button id="getUserList">获取所有用户列表</button>
+<br>
+<button id="update">更改用户</button>
+<br>
+<button id="delete">删除用户</button>
+<br>
+<button id="search">搜索用户</button>
+<br>
+<br>
+<button id="addGroup">添加小组</button>
+<br>
+<button id="deleteGroup">删除小组</button>
+<br>
+<button id="updateGroup">编辑小组</button>
+<br>
+<button id="groupList">所有小组</button>
+<br>
+<button id="searchGroupMembers">查询小组成员</button>
+<br>
+
+<script>
+
+  let oBtnVote = document.getElementById('postvote');
+  let oRegisterBtn = document.getElementById('register');
+  let oInputUserName = document.getElementById('inputUserName');
+  let oInputPassword = document.getElementById('inputPassword');
+  let oGetUserList = document.getElementById('getUserList');
+  let oUpdate = document.getElementById('update');
+  let oDelete = document.getElementById('delete');
+  let oSearch = document.getElementById('search');
+  let oAddGroup = document.getElementById('addGroup');
+  let oDeleteGroup = document.getElementById('deleteGroup');
+  let oUpdateGroup = document.getElementById('updateGroup');
+  let oGroupList = document.getElementById('groupList');
+  let oSearchGroupMembers = document.getElementById('searchGroupMembers');
+
+  /*注册*/
+  oRegisterBtn.onclick = function() {
+    fetch('/register', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        userName: oInputUserName.value,
+        realName: '沐沐恩',
+        password: oInputPassword.value,
+        userType: 3
+      })
+
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  /*登录*/
+  function loginPost() {
+
+    axios.post('/login', { userName: '111111', password: '111111' })
+      .then((res) => {
+        if (res.data.token) {
+          window.localStorage.setItem('token', res.data.token);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  oBtnVote.onclick = function() {
+    fetch('/newvote', {
+
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer 111${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        title: '投票标题',
+        content: '投票内容',
+        votelist: [ '选项1', '选项2', '选项3' ],
+        userId: '123456'
+      })
+
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+
+  };
+  /*获取所有用户列表*/
+  oGetUserList.onclick = function() {
+    fetch('/user?count=10&offset=2', {
+      method: 'get',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+  /*更新用户*/
+  oUpdate.onclick = function() {
+    fetch('/user/update', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        userId: '15',
+        address: '天堂',
+        realName: '小丽',
+        password: '00000',
+        phoneNum: '110'
+      })
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+  /*删除用户*/
+  oDelete.onclick = function() {
+    fetch('/user/delete', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        userId: '14',
+      })
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+  /*搜索用户*/
+  oSearch.onclick = function() {
+    fetch('/user/search?input=11', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
+  /**************************小组******************************/
+
+  /*添加小组*/
+  oAddGroup.onclick = function() {
+
+    fetch('/group/add', {
+      method: 'POST',
+      headers: {
+        'authorization': ` Bearer ${localStorage.getItem('token')}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        groupName: '分享小组',
+        groupPersonNum: 10,
+        leaderUserId: 13,
+        groupIcon: '' || 'http://img0.imgtn.bdimg.com/it/u=2240033465,1427047201&fm=26&gp=0.jpg',
+
+      })
+
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+
+  };
+
+  /*删除小组*/
+  oDeleteGroup.onclick = function() {
+
+    fetch('/group/delete', {
+      method: 'POST',
+      headers: {
+        'authorization': ` Bearer ${localStorage.getItem('token')}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        groupId: 1003,
+      })
+    })
+      .then((res) => {
+        console.log(res);
+      });
+
+
+  };
+  /*编辑小组*/
+  oUpdateGroup.onclick = function() {
+    fetch('/group/update', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        groupId: 1003,
+        groupName: '沐恩小组',
+        groupPersonNum: 20,
+        declaration: '小组必胜',
+        leaderUserName: 'mumu',
+        groupIcon: ''
+      })
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+  oGroupList.onclick = function() {
+    fetch('/group/list?count=2&offset=1', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
+  oSearchGroupMembers.onclick = function() {
+    fetch('/group/members?groupId=1003', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
+
+
+</script>
+</body>
+</html>
