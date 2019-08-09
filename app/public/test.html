@@ -85,7 +85,6 @@
         console.log(err);
       });
   }
-
   oBtnVote.onclick = function() {
     fetch('/newvote', {
 
@@ -129,7 +128,7 @@
         'authorization': ` Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify({
-        userId: '15',
+        userId: 15,
         address: '天堂',
         realName: '小丽',
         password: '00000',
@@ -149,7 +148,7 @@
         'authorization': ` Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify({
-        userId: '14',
+        userId: 14,
       })
     })
       .then((res) => {
@@ -158,7 +157,7 @@
   };
   /*搜索用户*/
   oSearch.onclick = function() {
-    fetch('/user/search?input=11', {
+    fetch('/user/search?input=沐恩', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json',
@@ -182,9 +181,9 @@
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        groupName: '分享小组',
+        groupName: '赞美小组',
         groupPersonNum: 10,
-        leaderUserId: 13,
+        leaderUserName: '沐恩',
         groupIcon: '' || 'http://img0.imgtn.bdimg.com/it/u=2240033465,1427047201&fm=26&gp=0.jpg',
 
       })
@@ -207,7 +206,7 @@
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        groupId: 1003,
+        groupId: 1007,
       })
     })
       .then((res) => {
@@ -237,6 +236,7 @@
         console.log(res.data);
       });
   };
+  /*小组列表*/
   oGroupList.onclick = function() {
     fetch('/group/list?count=2&offset=1', {
       method: 'GET',
@@ -249,7 +249,7 @@
         console.log(res.data);
       });
   };
-
+  /*搜索小组成员*/
   oSearchGroupMembers.onclick = function() {
     fetch('/group/members?groupId=1003', {
       method: 'GET',

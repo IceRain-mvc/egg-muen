@@ -18,7 +18,7 @@ module.exports = app => {
   router.post('/user/update',jwt, controller.user.user.update);
   /*搜索用户*/
   router.get('/user/search',jwt, controller.user.user.search);
-  /*设置权限*/
+  /*设置权限 接口暂未开放*/
   router.post('/user/setType',jwt, controller.user.user.setType);
 
   /************************小组******************************/

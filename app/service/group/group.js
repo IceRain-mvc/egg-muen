@@ -10,7 +10,7 @@ class GroupService extends Service {
     let result = await this.app.mysql.insert('group', {
       groupName: body.groupName,
       groupPersonNum: body.groupPersonNum,
-      leaderUserId: body.leaderUserId,
+      leaderUserName: body.leaderUserName,
       groupIcon: body.groupIcon || 'http://img0.imgtn.bdimg.com/it/u=2240033465,1427047201&fm=26&gp=0.jpg',
     });
 

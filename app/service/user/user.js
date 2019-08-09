@@ -57,16 +57,17 @@ class UserService extends Service {
     });
 
     if (resultDelete.affectedRows === 1) {
-      return 'success';
+      return {message:"删除成功",code:1};
     } else {
-      return null;
+      return {message:"删除失败，没有此用户",code:-1};
     }
   }
 
+  /*搜索用户*/
   async search(oInput) {
     const SQL_QUERY = `
       select * from user 
-      where userName = ${oInput} or realName like "%${oInput}%"
+      where userName = "${oInput}" or realName like "%${oInput}%"
     `;
 
     let result = await this.app.mysql.query(SQL_QUERY);

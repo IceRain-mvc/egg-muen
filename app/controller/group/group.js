@@ -62,6 +62,17 @@ class GroupController extends Controller {
   * */
   async deleteGroup() {
     let { ctx } = this;
+    try {
+      ctx.validate({ groupId: 'number' });
+    } catch (e) {
+      ctx.status = 422;
+      ctx.body = {
+        message: '参数错误',
+        code: -1
+      };
+      return;
+    }
+
     ctx.body = await this.service.group.group.deleteGroup(ctx.request.body.groupId);
   }
 

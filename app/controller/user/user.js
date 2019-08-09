@@ -39,27 +39,13 @@ class UserController extends Controller {
 
     ctx.validate({
       userId: {
-        type: 'string'
+        type: 'number'
       }
     });
 
     let userId = ctx.request.body.userId;
 
-    let result = await ctx.service.user.user.delete(userId);
-    if (!result) {
-      ctx.status = 500;
-      ctx.body = {
-        message: '服务器内部错误',
-        code: -1
-      };
-      return;
-    }
-
-    ctx.status = 200;
-    ctx.body = {
-      message: 'success',
-      code: 1
-    };
+    ctx.body = await ctx.service.user.user.delete(userId);
   }
 
   /*更新用户*/
@@ -67,7 +53,7 @@ class UserController extends Controller {
     let { ctx } = this;
     console.log('query', ctx.request.body);
     try {
-      ctx.validate({ userId: 'string' });
+      ctx.validate({ userId: 'number' });
     } catch (e) {
       ctx.status = 422;
       ctx.body = {
@@ -97,7 +83,18 @@ class UserController extends Controller {
   /*搜索用户*/
   async search() {
     let { ctx } = this;
-
+    // try {
+    //   ctx.validate({
+    //     input: 'string'
+    //   });
+    // }catch (e) {
+    //   ctx.status = 422;
+    //   ctx.body = {
+    //     message: '参数错误 必须string类型',
+    //     code: -1,
+    //   };
+    //   return;
+    // }
     let oInput = ctx.query.input;
     let result = await ctx.service.user.user.search(oInput);
     ctx.body = {
