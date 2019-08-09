@@ -1,62 +1,37 @@
 {
-  "message": "success",
   "code": 1,
   "result": [
     {
-      "userId": 22,
-      "userName": "沐沐10",
-      "realName": "沐沐恩",
-      "userType": 3,
-      "phoneNum": "15555555555",
-      "address": null,
-      "userIcon": "http://img.sj33.cn/uploads/allimg/201611/7-1611010T648.jpg",
-      "createTime": "2019-08-07T10:37:18.000Z",
-      "groupId": -1,
-      "sign": null,
-      "token": null,
-      "password": "96e3f07ae3fe831426a6d6b5b4cf724d7adfec19ef48a035fb1efbeceadf2a88"
+      "userId": 12,
+      "userName": "mumu",
+      "realName": "121212",
+      "phoneNum": "13000000000",
+      "address": "aaa",
+      "groupName": "沐恩小组"
     },
     {
-      "userId": 24,
-      "userName": "沐恩小黑",
-      "realName": "沐沐恩",
-      "userType": 3,
+      "userId": 15,
+      "userName": "沐沐3",
+      "realName": "小丽",
+      "phoneNum": "13000000000",
+      "address": "天堂",
+      "groupName": "沐恩小组"
+    },
+    {
+      "userId": 17,
+      "userName": "沐沐5",
+      "realName": "秀秀",
       "phoneNum": "15555555555",
       "address": null,
-      "userIcon": "http://img.sj33.cn/uploads/allimg/201611/7-1611010T648.jpg",
-      "createTime": "2019-08-07T10:37:25.000Z",
-      "groupId": 1006,
-      "sign": null,
-      "token": null,
-      "password": "96e3f07ae3fe831426a6d6b5b4cf724d7adfec19ef48a035fb1efbeceadf2a88"
+      "groupName": "沐恩小组"
     },
     {
       "userId": 28,
       "userName": "沐恩",
       "realName": "沐沐恩",
-      "userType": 1,
       "phoneNum": "110",
       "address": null,
-      "userIcon": "http://img.sj33.cn/uploads/allimg/201611/7-1611010T648.jpg",
-      "createTime": "2019-08-08T23:19:43.000Z",
-      "groupId": 1003,
-      "sign": null,
-      "token": null,
-      "password": "87ea9faac6644fea60d0b9caf42ed4f32019b14d6954750b98e82e4b964fd6fe"
-    },
-    {
-      "userId": 29,
-      "userName": "aaa",
-      "realName": "沐沐恩",
-      "userType": 3,
-      "phoneNum": "",
-      "address": null,
-      "userIcon": "http://img.sj33.cn/uploads/allimg/201611/7-1611010T648.jpg",
-      "createTime": "2019-08-09T01:08:39.000Z",
-      "groupId": -1,
-      "sign": null,
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImFhYSIsInBhc3N3b3JkIjoiMTIzIiwiaWF0IjoxNTY1MzEyOTU2LCJleHAiOjE1OTY4NDg5NTZ9.CtYrJV8eCn7DpjKgItF6K1LwaXC9o7P_O9wSbQt5WUU",
-      "password": "7e05c8a88fb8496908484837c07a6982f8e0d78fac896a81b6c97a58f58c4cdc"
+      "groupName": "沐恩小组"
     }
   ]
 }

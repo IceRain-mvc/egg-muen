@@ -62,7 +62,6 @@ class UserService extends Service {
       return {message:"删除失败，没有此用户",code:-1};
     }
   }
-
   /*搜索用户*/
   async search(oInput) {
     const SQL_QUERY = `

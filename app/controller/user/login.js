@@ -9,11 +9,12 @@ class LoginController extends Controller {
 
     //类型验证
     try {
-      ctx.validate({ userName: 'string', realName: 'string', password: 'string', userType: 'number' });
+      ctx.validate({ userName: 'string', realName: 'string', password: 'string'});
     } catch (e) {
+      console.info(e);
       ctx.status = 422;
       ctx.body = {
-        message: 'fail',
+        message: '参数错误',
         code: -1
       };
       return;
