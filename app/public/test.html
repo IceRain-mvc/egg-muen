@@ -10,10 +10,10 @@
 <input type="text" id="inputPassword" placeholder="密码">
 <br>
 <button id="register">注册测试</button>
+<button id="uptoken">获取七牛云uptoken</button>
 <br>
 <button onclick="loginPost()">登录测试</button>
 <br>
-<button id="postvote">发起投票</button>
 <br>
 <button id="getUserList">获取所有用户列表</button>
 <br>
@@ -34,10 +34,13 @@
 <br>
 <button id="searchGroupMembers">查询小组成员</button>
 <br>
+<button id="postvote">发起投票</button>
+<button id="getVoteList">获取所有投票列表</button>
+
 
 <script>
 
-  let oBtnVote = document.getElementById('postvote');
+  let oUptoken = document.getElementById('uptoken');
   let oRegisterBtn = document.getElementById('register');
   let oInputUserName = document.getElementById('inputUserName');
   let oInputPassword = document.getElementById('inputPassword');
@@ -50,7 +53,9 @@
   let oUpdateGroup = document.getElementById('updateGroup');
   let oGroupList = document.getElementById('groupList');
   let oSearchGroupMembers = document.getElementById('searchGroupMembers');
-
+  let oGetVoteList = document.getElementById('getVoteList');
+  let oBtnVote = document.getElementById('postvote');
+  // let oPostvote = document.getElementById('postvote');
   /*注册*/
   oRegisterBtn.onclick = function() {
     fetch('/register', {
@@ -75,7 +80,7 @@
   /*登录*/
   function loginPost() {
 
-    axios.post('/login', { userName: 'aaa', password: '123' })
+    axios.post('/login', { userName: oInputUserName.value, password: oInputPassword.value})
       .then((res) => {
         if (res.data.token) {
           window.localStorage.setItem('token', res.data.token);
@@ -85,27 +90,7 @@
         console.log(err);
       });
   }
-  oBtnVote.onclick = function() {
-    fetch('/newvote', {
 
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        'authorization': ` Bearer 111${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({
-        title: '投票标题',
-        content: '投票内容',
-        votelist: [ '选项1', '选项2', '选项3' ],
-        userId: '123456'
-      })
-
-    })
-      .then((res) => {
-        console.log(res.data);
-      });
-
-  };
   /*获取所有用户列表*/
   oGetUserList.onclick = function() {
     fetch('/user?count=10&offset=2', {
@@ -170,7 +155,6 @@
   };
 
   /**************************小组******************************/
-
   /*添加小组*/
   oAddGroup.onclick = function() {
 
@@ -195,7 +179,6 @@
       });
 
   };
-
   /*删除小组*/
   oDeleteGroup.onclick = function() {
 
@@ -264,7 +247,51 @@
   };
 
 
+  oUptoken.onclick = function() {
+    fetch('/qiniu/uptoken', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  }
+  oBtnVote.onclick = function() {
+    fetch('/vote/newvote', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        title: '投票标题',
+        userId:14,
+        chooseList: [ '选项1', '选项2', '选项3', '选项4' ],
+        anonymity:1,
+        isSingle: 1
 
+      })
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+
+  };
+
+  oGetVoteList.onclick = function() {
+    fetch('/vote/allVote', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': ` Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+      });
+  }
 </script>
 </body>
 </html>

@@ -14,35 +14,48 @@ class VoteController extends Controller {
     let body = ctx.request.body;
 
 
-    let token = ctx.header.authorization;
-    console.log(token);
-    let payload;
-    if (token) {
-      payload = await app.jwt.verify(token.split(' ')[ 1 ], 'bao');
-      try {
-        ctx.validate({ title: 'string', userId: 'string', votelist: 'array' });
-      } catch (e) {
-        ctx.status = 422;
-        ctx.body = { msg: '验证失败 参数不正确' };
-        return;
-      }
-
-
-      let result = await ctx.service.vote.push(body);
-
-      ctx.status = 200;
-      ctx.body = { msg: result,payload, code: 200 };
+    // let token = ctx.header.authorization;
+    // console.log(token);
+    // let payload;
+    // if (token) {
+    // payload = await app.jwt.verify(token.split(' ')[ 1 ], 'bao');
+    try {
+      ctx.validate({ title: 'string', userId: 'number', chooseList: 'array',anonymity:'number',isSingle:'number' });
+    } catch (e) {
+      ctx.status = 422;
+      ctx.body = { msg: '验证失败 参数不正确' };
+      return;
     }
+
+
+    ctx.body = await ctx.service.vote.push(body);
+
+    // ctx.body = { msg: result, payload, code: 200 };
+    // }
   }
 
 
-  async allvote() {
+  async allVote() {
     let { ctx } = this;
-    let result = await ctx.service.vote.getAllVoteList();
+    let { count, offset } = ctx.query;
+    try {
+      parseInt(count);
+      parseInt(offset);
+    } catch (e) {
+      ctx.body = {
+        message: '参数类型不对',
+        code: -1
+      };
+      return;
+    }
+
+
+    let result = await ctx.service.vote.getAllVoteList(ctx.query);
 
     if (!result) {
       ctx.status = 500;
       ctx.body = { msg: '服务器内部错误' };
+      return;
     }
     ctx.status = 200;
     ctx.body = result;

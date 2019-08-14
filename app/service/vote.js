@@ -11,11 +11,14 @@ class VoteService extends Service {
     /*insert 插入  get 查询 一条 select:条件查询 update :更新数据  delete 删除数据  query 直接执行sql语句  事务*/
     let result = await app.mysql.insert('vote', {
       title: obj.title,
-      content: obj.content,
-      userId: obj.userId
+      info: obj.info,
+      userId: obj.userId,
+      createTime: new Date(),
+      anonymity: obj.anonymity,
+      isSingle: obj.isSingle
+
     });
 
-    console.log(result);
     if (result.affectedRows === 1) {
 
       // obj.votelist.forEach((item) => {
@@ -28,38 +31,53 @@ class VoteService extends Service {
 
       // app.mysql.beginTransition();
 
-      for (let i = 0; i < obj.votelist.length; i++) {
-        const item = obj.votelist[ i ];
-        app.mysql.insert('votelist', {
-          voteid: result.insertId,
-          content: item
+      for (let i = 0; i < obj.chooseList.length; i++) {
+        const item = obj.chooseList[ i ];
+        app.mysql.insert('choose', {
+          voteId: result.insertId,
+          chooseContent: item,
+          totalNum: 0
         });
       }
 
 
-      return 'success';
+      return {
+        message: '发表成功',
+        code: 1
+      };
       // } else {
       //   return 'fail';
       // }
+    }else {
+      return {
+        message: '发表失败，可能是数据库原因',
+        code: -1
+      }
     }
 
   }
 
-  async getAllVoteList() {
+  async getAllVoteList(query) {
     //1:获取所有投票
     //2:投票的选项
     //3:返回在json数据中
 
+    let { count, offset} = query;
+    count = parseInt(count);
+    offset = parseInt(offset * count - count);//1 第1页  2 第二页
+
     const VOTE_LIST_ALL = `select vote.title, 
-    vote.content, vote.userid ,vote.voteid ,votelist.content ,votelist.chooseid 
+    vote.info, vote.userId ,vote.voteId ,choose.chooseContent ,choose.chooseId,choose.totalNum 
     from vote 
-    left join votelist 
+    left join choose 
     on 
-    vote.voteid=votelist.voteid`;
+    vote.voteId=choose.voteId 
+    limit ${offset || 0}, ${count||1000}
+    `;
 
     let result = await this.app.mysql.query(VOTE_LIST_ALL);
     if (!result) {
-      return null;
+      return { message: '无内容',code:-1};
     }
 
     let newResult = [];
@@ -68,19 +86,19 @@ class VoteService extends Service {
       //{title,userid,voteid}
 
       for (let i = 0; i < newResult.length; i++) {
-        if (newResult[ i ].voteid === item.voteid) {
+        if (newResult[ i ].voteId === item.voteId) {
           newResult[ i ].choose.push(
-            { content: item.content, chooseid: item.chooseid }
+            { content: item.chooseContent, chooseId: item.chooseId }
           );
           return;
         }
       }
       newResult.push({
-        voteid: item.voteid,
+        voteId: item.voteId,
         title: item.title,
-        userid: item.userid,
+        userId: item.userId,
         choose: [
-          { content: item.content, chooseid: item.chooseid }
+          { content: item.chooseContent, chooseId: item.chooseId, totalNum: item.totalNum }
         ]
       });
     });

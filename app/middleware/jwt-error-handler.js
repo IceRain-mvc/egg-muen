@@ -4,9 +4,10 @@ module.exports = (options, app) => {
       await next();
     }catch (e) {
 
+      /* ctx.path.includes('unauthorerror') &&
+        */
       if (
-        ctx.path.includes('unauthorerror') &&
-        e instanceof app.jwt.UnauthorizedError
+       e instanceof app.jwt.UnauthorizedError
       ) {
         ctx.status = 401;
         ctx.body = {

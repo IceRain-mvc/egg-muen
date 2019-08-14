@@ -26,10 +26,7 @@ class LoginController extends Controller {
     //如果插入失败
     if (result.code === -1) {
       ctx.status = 422;
-      ctx.body = {
-        message: result.message,
-        code: -1,
-      };
+      ctx.body = result;
       return;
     }
 

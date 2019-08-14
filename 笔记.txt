@@ -10,6 +10,47 @@
   ]
 }
 
+常用的组件
+
+Js Component
+
+Toast
+Pull down
+Pull up
+Popup
+Range
+Picker
+ScrollView
+
+Css Component
+
+Header
+Footer
+Button
+Lazy Load
+
+
+
+Form Component
+
+Radio
+Switch
+Checklist
+Badge
+
+
+七牛云 上传文件
+
+   
+
+
+
+
+
+
+
+
+
 
 
 
