@@ -11,11 +11,13 @@ class VoteService extends Service {
     /*insert 插入  get 查询 一条 select:条件查询 update :更新数据  delete 删除数据  query 直接执行sql语句  事务*/
     let result = await app.mysql.insert('vote', {
       title: obj.title,
-      info: obj.info,
+      info: obj.info || '',
       userId: obj.userId,
       createTime: new Date(),
       anonymity: obj.anonymity,
-      isSingle: obj.isSingle
+      isSingle: obj.isSingle,
+      startTime: obj.startTime,
+      endTime: obj.endTime
 
     });
 
@@ -48,11 +50,11 @@ class VoteService extends Service {
       // } else {
       //   return 'fail';
       // }
-    }else {
+    } else {
       return {
         message: '发表失败，可能是数据库原因',
         code: -1
-      }
+      };
     }
 
   }
@@ -62,22 +64,22 @@ class VoteService extends Service {
     //2:投票的选项
     //3:返回在json数据中
 
-    let { count, offset} = query;
+    let { count, offset } = query;
     count = parseInt(count);
     offset = parseInt(offset * count - count);//1 第1页  2 第二页
 
-    const VOTE_LIST_ALL = `select vote.title, 
+    const VOTE_LIST_ALL = `select vote.title, vote.startTime,vote.endTime ,vote.anonymity,vote.isSingle,
     vote.info, vote.userId ,vote.voteId ,choose.chooseContent ,choose.chooseId,choose.totalNum 
     from vote 
     left join choose 
     on 
     vote.voteId=choose.voteId 
-    limit ${offset || 0}, ${count||1000}
+    limit ${offset || 0}, ${count || 1000}
     `;
 
     let result = await this.app.mysql.query(VOTE_LIST_ALL);
     if (!result) {
-      return { message: '无内容',code:-1};
+      return { message: '无内容', code: -1 };
     }
 
     let newResult = [];
@@ -88,7 +90,11 @@ class VoteService extends Service {
       for (let i = 0; i < newResult.length; i++) {
         if (newResult[ i ].voteId === item.voteId) {
           newResult[ i ].choose.push(
-            { content: item.chooseContent, chooseId: item.chooseId }
+            {
+              content: item.chooseContent,
+              chooseId: item.chooseId,
+              totalNum: item.totalNum
+            }
           );
           return;
         }
@@ -97,8 +103,16 @@ class VoteService extends Service {
         voteId: item.voteId,
         title: item.title,
         userId: item.userId,
+        startTime: item.startTime,
+        endTime: item.endTime,
+        anonymity: item.anonymity,
+        isSingle: item.isSingle,
         choose: [
-          { content: item.chooseContent, chooseId: item.chooseId, totalNum: item.totalNum }
+          {
+            content: item.chooseContent,
+            chooseId: item.chooseId,
+            totalNum: item.totalNum
+          }
         ]
       });
     });

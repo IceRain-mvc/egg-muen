@@ -1,47 +1,32 @@
 [
   {
-    "voteId": 1,
+    "voteId": 3,
     "title": "投票标题",
     "userId": 14,
+    "startTime": "2019-09-14 14:14:14",
+    "endTime": "2019-09-15 14:14:14",
+    "anonymity": 1,
+    "isSingle": 1,
     "choose": [
       {
         "content": "选项1",
-        "chooseId": 1
+        "chooseId": 9,
+        "totalNum": 0
       },
       {
         "content": "选项2",
-        "chooseId": 2
+        "chooseId": 10,
+        "totalNum": 0
       },
       {
         "content": "选项3",
-        "chooseId": 3
+        "chooseId": 11,
+        "totalNum": 0
       },
       {
         "content": "选项4",
-        "chooseId": 4
-      }
-    ]
-  },
-  {
-    "voteId": 2,
-    "title": "投票标题",
-    "userId": 14,
-    "choose": [
-      {
-        "content": "选项4",
-        "chooseId": 5
-      },
-      {
-        "content": "选项3",
-        "chooseId": 6
-      },
-      {
-        "content": "选项2",
-        "chooseId": 7
-      },
-      {
-        "content": "选项1",
-        "chooseId": 8
+        "chooseId": 12,
+        "totalNum": 0
       }
     ]
   }

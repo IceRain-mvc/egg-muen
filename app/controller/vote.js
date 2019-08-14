@@ -20,8 +20,15 @@ class VoteController extends Controller {
     // if (token) {
     // payload = await app.jwt.verify(token.split(' ')[ 1 ], 'bao');
     try {
-      ctx.validate({ title: 'string', userId: 'number', chooseList: 'array',anonymity:'number',isSingle:'number' });
+      ctx.validate({
+        title: 'string',
+        userId: 'number',
+        chooseList: 'array',
+        anonymity: 'number', isSingle: 'number',
+        startTime: 'string', endTime: 'string'
+      });
     } catch (e) {
+      console.log(e);
       ctx.status = 422;
       ctx.body = { msg: '验证失败 参数不正确' };
       return;
