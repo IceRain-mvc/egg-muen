@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2019-08-14 13:30:12
+Date: 2019-08-14 15:25:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,11 +27,7 @@ CREATE TABLE `vote` (
   `anonymity` smallint(6) NOT NULL DEFAULT '1',
   `isSingle` smallint(6) NOT NULL DEFAULT '1',
   `userId` int(11) NOT NULL,
+  `startTime` varchar(255) NOT NULL,
+  `endTime` varchar(255) NOT NULL,
   PRIMARY KEY (`voteId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of vote
--- ----------------------------
-INSERT INTO `vote` VALUES ('1', '投票标题', null, '2019-08-14 13:28:21', '1', '1', '14');
-INSERT INTO `vote` VALUES ('2', '投票标题', null, '2019-08-14 13:29:13', '1', '1', '14');
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
