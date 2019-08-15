@@ -39,6 +39,7 @@ class LoginService extends Service {
       );
       return {
         message: 'success',
+        userId: result.userId,
         userName: result.userName,
         realName: result.realName,
         createTime: result.createTime,
