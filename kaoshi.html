@@ -7,7 +7,7 @@
 <body>
 
 <script>
-  var x = prompt('请输入1-5的数字', '');
+  /*var x = prompt('请输入1-5的数字', '');
   switch (x) {
     case '1':
       let y = prompt('你喜欢那种颜色 : A、红色   B、绿色     C、黑色    D、粉色');
@@ -55,7 +55,84 @@
     default:
       alert('你啥都没选择');
   }
+*/
 
+  let name = '';
+  let phone = 0;
+  let total = 0;
+
+  function getPrompt() {
+    let num = prompt('欢迎使用【名片管理系统】V1.0\n' +
+      '\n' +
+      '1. 考试人信息\n' +
+      '2. 请看题\n' +
+      '3. 查询得分\n' +
+      '\n' +
+      '0. 退出系统');
+    let number = 0;
+    try {
+      number = parseInt(num);
+    } catch (e) {
+      alert('选择出错 重新选择');
+      getPrompt();
+      return;
+    }
+    return number;
+  }
+
+  function getNum(num) {
+    let number = -1;
+    switch (num) {
+      case 1:
+        name = prompt('请输入姓名');
+        phone = prompt('请输入电话');
+        alert('姓名:' + name + ',电话:' + phone);
+        number = getPrompt();
+        getNum(number);
+        break;
+      case 2:
+        alert('题目：打印出100-999以内的“水仙花数”，所谓“水仙花数”是指一个三位数，其各位数字立方和等于该数');
+        let min = prompt('请输入一个最小数字');
+        let max = prompt('请输入一个最大数字');
+        let result = selfPower(min, max);
+        alert(`在${min}和${max}中间的水仙花数为:${result},考试结束 得分满分`);
+        total = 100;
+        number = getPrompt();
+        getNum(number);
+        break;
+      case 3:
+        alert(`姓名:${name},电话:${phone},得分为:${total}分`);
+        number = getPrompt();
+        getNum(number);
+        break;
+      case 0:
+        alert('退出程序');
+        break;
+      default:
+        alert('选择错误!! 退出程序');
+    }
+  }
+
+  function selfPower(minnum, maxnum) {
+    let result = '';
+
+    let a = 0;
+    let b = 0;
+    let c = 0;
+    for (let i = 100; i < 1000; i++) {
+      a = parseInt(i % 10);  //个位数
+      b = parseInt((i / 10) % 10);  //十位数
+      c = parseInt(i / 100);   //千位数
+      if (a * a * a + b * b * b + c * c * c === i) {
+        result += i + ',';
+      }
+    }
+
+    return result;
+  }
+
+  let num = getPrompt();
+  getNum(num);
 
 </script>
 

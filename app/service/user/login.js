@@ -38,7 +38,7 @@ class LoginService extends Service {
         }
       );
       return {
-        message: 'success',
+        message: '登录成功',
         userId: result.userId,
         userName: result.userName,
         realName: result.realName,
